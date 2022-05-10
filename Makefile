@@ -12,7 +12,7 @@ clean:
 	rm -f adxl345spi
 
 packages:
-	if ! dpkg-query -W -f='$${Status}' pigpio | grep "ok installed"; then apt-get -y install pigpio; fi
+	@if ! which pigpiod >/dev/null 2>&1; then echo "pigpio package cannot be found!"; false; fi
 
 adxl345spi: adxl345spi.c
 	$(CC) $(CFLAGS) adxl345spi.c $(LIBS) -o adxl345spi
